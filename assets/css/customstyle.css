@@ -1,0 +1,28 @@
+.shortenurl {
+    text-decoration: none;
+}
+.input-urlform {
+    margin-top: 20px;
+}
+.btn {
+    margin-top: 5px;
+}
+.copy {
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #0D47CE;
+    border-color: white;
+    color:white;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #0F56FA;
+    color:white;
+}
+#shorturl {
+    border: none;
+    width: 60%;
+}
+#shorturl:hover {
+    cursor: pointer;
+}

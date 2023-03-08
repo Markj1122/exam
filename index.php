@@ -11,16 +11,19 @@
     <head>
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/bootstrap.css">
+        <link rel="stylesheet" href="./assets/css/customstyle.css">
+        <script src="./assets/js/customjs.js"></script>
     <head>
         <body>
             <div class="container">
-                <div class="row" style="margin-top:20px;">
+                <div class="row input-urlform">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <h3>Enter long URL</h3>
+                        <h3>Short Your Long Url</h3>
                         <form method="POST" action="">
+                            <label for="longurl">Input Your URL</label>
                             <input type="text" name="longurl" class="form-control" placeholder="example:http/makingUrlshort.com/testing/testing" required>
-                            <input type="submit" name="shorten" value="SHORT" class="btn btn-primary" style="margin-top:5pt;">
+                            <input type="submit" name="shorten" value="SHORT" class="btn btn-primary">
                         </form>
                     </div>
                     <div class="col-md-3"></div>
@@ -30,7 +33,12 @@
                     <div class="col-md-8">
                         <p>
                             <?php if($sorturl!="") {?>
-                            Shorten URL: <?= $sorturl->getShorturl(); ?>
+                            Shorten URL:<i class="shortenurl">
+                                            <a class="shortenurl" href="<?= $sorturl->getShorturl(); ?>">
+                                                <input type="text" id="shorturl" value="<?= $sorturl->getShorturl(); ?>" readonly>
+                                            </a>
+                                        </i> 
+                                        <button class="copy" onclick="clickCopy()">copy</button>
                             <br>
                             Original URL: <?= $sorturl->getOrigurl(); ?>
                             <?php }?>
