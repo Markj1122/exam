@@ -12,7 +12,7 @@ class Shorturl {
 
        try {
         $apiv4 = 'https://api-ssl.bitly.com/v4/shorten';
-        $genericAccessToken = 'b5b60b27281f3eabf8fc0c7ce6b69e42dbd0c7e7';
+        $AccessToken = 'b5b60b27281f3eabf8fc0c7ce6b69e42dbd0c7e7';
 
         $data = array(
             'long_url' => $this->long_url,
@@ -22,7 +22,7 @@ class Shorturl {
         $payload = json_encode($data);
 
         $header = array(
-            'Authorization: Bearer ' . $genericAccessToken,
+            'Authorization: Bearer ' . $AccessToken,
             'Content-Type: application/json',
         );
 
