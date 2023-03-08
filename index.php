@@ -32,7 +32,7 @@
                             <?php if($sorturl!="") {?>
                             Shorten URL: <?= $sorturl->getShorturl(); ?>
                             <br>
-                           Original URL: <?= $sorturl->getOrigurl(); ?>
+                            Original URL: <?= $sorturl->getOrigurl(); ?>
                             <?php }?>
                         </p>
                         <p>
