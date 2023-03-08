@@ -22,7 +22,7 @@
                         <h3>Short Your Long Url</h3>
                         <form method="POST" action="">
                             <label for="longurl">Input Your URL</label>
-                            <input type="text" name="longurl" class="form-control" placeholder="example:http/makingUrlshort.com/testing/testing" required>
+                            <input type="text" name="longurl" class="form-control" placeholder="ex: http/makingUrlshort.com/testing/testing" required>
                             <input type="submit" name="shorten" value="SHORT" class="btn btn-primary">
                         </form>
                     </div>
@@ -33,11 +33,10 @@
                     <div class="col-md-8">
                         <p>
                             <?php if($sorturl!="") {?>
-                            Shorten URL:<i class="shortenurl">
-                                            <a class="shortenurl" href="<?= $sorturl->getShorturl(); ?>">
-                                                <input type="text" id="shorturl" value="<?= $sorturl->getShorturl(); ?>" readonly>
-                                            </a>
-                                        </i> 
+                            Shorten URL:
+                                        <a class="shortenurl" href="<?= $sorturl->getShorturl(); ?>">
+                                            <input type="text" id="shorturl" value="<?= $sorturl->getShorturl(); ?>" readonly>
+                                        </a>
                                         <button class="copy" onclick="clickCopy()">copy</button>
                             <br>
                             Original URL: <?= $sorturl->getOrigurl(); ?>
