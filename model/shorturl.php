@@ -38,7 +38,7 @@ class Shorturl {
           $this->short_url = $resultToJson->link;
         }
         else {
-          throw new Exception(curl_error($ch) ."". curl_getinfo($ch, CURLINFO_HTTP_CODE));
+          throw new Exception("error: ".curl_error($ch));
         }
         curl_close($ch);
        } catch(Exception $e) {
