@@ -40,6 +40,7 @@ class Shorturl {
         else {
           throw new Exception(curl_error($ch) ."". curl_getinfo($ch, CURLINFO_HTTP_CODE));
         }
+        curl_close($ch);
        } catch(Exception $e) {
         $this->short_url = $e->getMessage();
        }
