@@ -49,13 +49,10 @@ class Shorturl {
   public function getShorturl() {
     return $this->short_url;
   }
-
   public function getOrigurl() {
     return $this->long_url;
   }
-  public function setUrl($urlcus) {
-    $this->short_url = $urlcus;
-  }
+
 }
 
 ?>
