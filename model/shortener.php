@@ -1,13 +1,11 @@
 <?php 
-    class Shortener
-    {
-        protected static $chars = "abcdfghjkmnpqrstvwxyz|ABCDFGHJKLMNPQRSTVWXYZ|0123456789";
-        protected static $table = "short_urls";
-        protected static $checkUrlExists = false;
-        protected static $codeLength = 7;
-    
-        protected $pdo;
-        protected $timestamp;
+    class Shortener {
+        private $chars = "abcdfghjkmnpqrstvwxyz|ABCDFGHJKLMNPQRSTVWXYZ|0123456789";
+        private $table = "short_urls";
+        private $checkUrlExists = false;
+        private $codeLength = 7;
+        private $pdo;
+        private $timestamp;
     
         public function __construct(PDO $pdo){
             $this->pdo = $pdo;
@@ -23,7 +21,7 @@
                 throw new Exception("URL does not have a valid format.");
             }
     
-            if(self::$checkUrlExists){
+            if($this->checkUrlExists){
                 if (!$this->verifyUrlExists($url)){
                     throw new Exception("URL does not appear to exist.");
                 }
@@ -54,7 +52,7 @@
         }
     
         protected function urlExistsInDB($url){
-            $query = "SELECT short_code FROM ".self::$table." WHERE long_url = :long_url LIMIT 1";
+            $query = "SELECT short_code FROM ".$this->table." WHERE long_url = :long_url LIMIT 1";
             $stmt = $this->pdo->prepare($query);
             $params = array(
                 "long_url" => $url
@@ -66,13 +64,13 @@
         }
     
         protected function createShortCode($url){
-            $shortCode = $this->generateRandomString(self::$codeLength);
+            $shortCode = $this->generateRandomString($this->codeLength);
             $id = $this->insertUrlInDB($url, $shortCode);
             return $shortCode;
         }
         
         protected function generateRandomString($length = 6){
-            $sets = explode('|', self::$chars);
+            $sets = explode('|', $this->chars);
             $all = '';
             $randString = '';
             foreach($sets as $set){
@@ -88,7 +86,7 @@
         }
     
         protected function insertUrlInDB($url, $code){
-            $query = "INSERT INTO ".self::$table." (long_url, short_code, created) VALUES (:long_url, :short_code, :timestamp)";
+            $query = "INSERT INTO ".$this->table." (long_url, short_code, created) VALUES (:long_url, :short_code, :timestamp)";
             $stmnt = $this->pdo->prepare($query);
             $params = array(
                 "long_url" => $url,
@@ -122,12 +120,12 @@
         }
     
         protected function validateShortCode($code){
-            $rawChars = str_replace('|', '', self::$chars);
+            $rawChars = str_replace('|', '', $this->chars);
             return preg_match("|[".$rawChars."]+|", $code);
         }
     
         protected function getUrlFromDB($code){
-            $query = "SELECT id, long_url FROM ".self::$table." WHERE short_code = :short_code LIMIT 1";
+            $query = "SELECT id, long_url FROM ".$this->table." WHERE short_code = :short_code LIMIT 1";
             $stmt = $this->pdo->prepare($query);
             $params=array(
                 "short_code" => $code
@@ -139,7 +137,7 @@
         }
     
         protected function incrementCounter($id){
-            $query = "UPDATE ".self::$table." SET hits = hits + 1 WHERE id = :id";
+            $query = "UPDATE ".$this->table." SET hits = hits + 1 WHERE id = :id";
             $stmt = $this->pdo->prepare($query);
             $params = array(
                 "id" => $id

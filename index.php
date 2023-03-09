@@ -6,7 +6,7 @@
     $sorturl = "";
     $shortclass = new Shortener($db);
     if(isset($_POST['shorten'])) {
-        $domain = "http://localhost:8080/test/my-appapi/exam/";
+        $domain = "http://localhost:/exam/";//change the value depending on what port you are using. ex:http://localhost:/exam/ or http://localhost:8080/exam/.
         $longurl = isset($_POST['longurl'])? $_POST['longurl']:'';
    
         $sorturl = new Controller($db,$longurl,$domain,$shortclass);
@@ -54,7 +54,7 @@
                                         <a class="shortenurl" href="<?= $sorturl->get_Shorturl(); ?>">
                                             <input type="text" id="shorturl" value="<?= $sorturl->get_Shorturl(); ?>" readonly>
                                         </a>
-                                        <button class="copy" onclick="clickCopy()">copy</button>
+                                        <button class="btn btn-success" onclick="clickCopy()">copy</button>
                             <br>
                             Original URL: <?= $sorturl->get_Orig(); ?>
                             <?php }?>
