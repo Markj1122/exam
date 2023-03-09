@@ -1,11 +1,28 @@
 <?php 
-    include "/model/shorturl.php";
+    require_once '/model/shortener.php';
+    require_once '/controller/control.php';
+    require_once '/config/config.php';
+
     $sorturl = "";
+    $shortclass = new Shortener($db);
     if(isset($_POST['shorten'])) {
+        $domain = "http://localhost:8080/test/my-appapi/exam/";
         $longurl = isset($_POST['longurl'])? $_POST['longurl']:'';
-        $sorturl = new Shorturl($longurl);
-        $sorturl->toShorturl();
+   
+        $sorturl = new Controller($db,$longurl,$domain,$shortclass);
+        $sorturl->shortenUrl();
     }
+
+    if(isset($_GET["c"])) {
+        try {
+            $url = $shortclass->shortCodeToUrl($_GET["c"]);
+            header("Location: ".$url);
+            exit;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+    
 ?>
 <html>
     <head>
@@ -34,12 +51,12 @@
                         <p>
                             <?php if($sorturl!="") {?>
                             Shorten URL:
-                                        <a class="shortenurl" href="<?= $sorturl->getShorturl(); ?>">
-                                            <input type="text" id="shorturl" value="<?= $sorturl->getShorturl(); ?>" readonly>
+                                        <a class="shortenurl" href="<?= $sorturl->get_Shorturl(); ?>">
+                                            <input type="text" id="shorturl" value="<?= $sorturl->get_Shorturl(); ?>" readonly>
                                         </a>
                                         <button class="copy" onclick="clickCopy()">copy</button>
                             <br>
-                            Original URL: <?= $sorturl->getOrigurl(); ?>
+                            Original URL: <?= $sorturl->get_Orig(); ?>
                             <?php }?>
                         </p>
                         <p>
